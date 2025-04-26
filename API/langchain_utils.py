@@ -32,7 +32,7 @@ output_parser = StrOutputParser()
 
 #LLM model
 llm = HuggingFaceEndpoint(
-    endpoint_url="https://aowxr49vng3zvk4q.us-east-1.aws.endpoints.huggingface.cloud",
+    endpoint_url="",
     huggingfacehub_api_token=hf_token,
     task="text-generation",
     max_new_tokens=50000,
