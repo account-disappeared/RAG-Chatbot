@@ -63,7 +63,7 @@ prompt = ChatPromptTemplate.from_messages([
 
 fusion_prompt = """You are a helpful assistant that generates 5 search queries from a single user question, and only contains 5 search queries in the answer:
 {question}
-输出（5个查询）:"""
+Output(5 queries):"""
 prompt_rag_fusion = LCPT.from_template(fusion_prompt)
 
 #generate RAG fusion queries
