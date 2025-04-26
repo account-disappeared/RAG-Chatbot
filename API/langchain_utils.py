@@ -90,7 +90,7 @@ class FusionRetriever(BaseRetriever):
     # 1) Tell Pydantic to accept any Python object as a field
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
-    # 2) Declare exactly the fields you’ll pass in:
+    # 2) Declare exactly the fields:
     base: BaseRetriever
     qgen: Any
     rrf: Any
