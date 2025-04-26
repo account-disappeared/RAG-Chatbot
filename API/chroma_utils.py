@@ -7,7 +7,7 @@ from langchain_core.documents import Document
 import os
 
 text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200, length_function=len)
-embedding_function = HuggingFaceEmbeddings(model_name="jinaai/jina-embeddings-v2-base-zh")
+embedding_function = HuggingFaceEmbeddings(model_name="")
 vectorstore = Chroma(
     collection_name="my_collection",
     persist_directory="./chroma_db",
