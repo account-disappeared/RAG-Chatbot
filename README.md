@@ -39,7 +39,7 @@ Frontend was written using Streamlit 👑
 - [ ] Stable & affordable chatbot provider (No OpenAI)
 
 #### UI Improvements🎨
-- [ ] change UI language *(in progress)*
+- [x] change UI language *(Completed)*
 - [ ] rebuild frontend using React⚛️
 
 #### General Development
