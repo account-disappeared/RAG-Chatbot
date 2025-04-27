@@ -20,6 +20,7 @@ Frontend was written using Streamlit 👑
 | `/delete-doc` | Delete the chosen document from Chroma |                                                                                                                       | 
 
 ### Functions🧩:
+* set the language of the UI automatically based on your browser settings
 * Upload your own files
 * Delete unwanted files
 * chat based on your files
