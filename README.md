@@ -31,6 +31,7 @@ Frontend was written using Streamlit 👑
 ### Road Map 🗺️
 
 #### API Improvements🛠️
+- [ ] Retriever logic error *(in progress)*
 - [ ] chatbot response not ideal *(in progress)*
 - [ ] JSON format bug *(in progress)*
 - [ ] Async Implementation
