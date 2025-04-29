@@ -32,9 +32,9 @@ Frontend was written using Streamlit 👑
 ### Road Map 🗺️
 
 #### API Improvements🛠️
-- [ ] Retriever logic error *(in progress)*
-- [ ] chatbot response not ideal *(in progress)*
-- [ ] JSON format bug *(in progress)*
+- [ ] string manipulation for llm output *(in progress)*
+- [ ] end of sentence tokens *(in progress)*
+- [ ] aynamic chunking sizes *(in progress)*
 - [ ] Async Implementation
 - [ ] Visible Logging
 - [ ] Stable & affordable chatbot provider (No OpenAI)
@@ -44,6 +44,8 @@ Frontend was written using Streamlit 👑
 - [ ] rebuild frontend using React⚛️
 
 #### General Development
+- [ ] A button to clear chat history *(in progress)*
+- [ ] auto-clean chat history *(in progress)*
 - [ ] Dockerize🐋 both front and backend *(in progress)*
 - [ ] Have an actual domain
 - [ ] Secure the website
