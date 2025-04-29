@@ -116,4 +116,4 @@ def get_text(key, lang="en", **kwargs):
         try:
             return translations["en"][key]
         except KeyError:
-            return key  # Return the key itself as a last resort
+            return key
