@@ -34,7 +34,8 @@ Frontend was written using Streamlit 👑
 #### API Improvements🛠️
 - [ ] string manipulation for llm output *(in progress)*
 - [ ] end of sentence tokens *(in progress)*
-- [ ] aynamic chunking sizes *(in progress)*
+- [ ] dynamic chunking sizes *(in progress)*
+- [ ] hybrid search
 - [ ] Async Implementation
 - [ ] Visible Logging
 - [ ] Stable & affordable chatbot provider (No OpenAI)
@@ -47,7 +48,10 @@ Frontend was written using Streamlit 👑
 - [ ] A button to clear chat history *(in progress)*
 - [ ] auto-clean chat history *(in progress)*
 - [ ] Dockerize🐋 both front and backend *(in progress)*
+- [ ] optimization for Chain logic
 - [ ] Have an actual domain
 - [ ] Secure the website
     - [ ] Authentication?
     - [ ] more...
+
+### Changelog
