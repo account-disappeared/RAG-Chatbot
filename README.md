@@ -9,6 +9,9 @@ API was written using FastAPI ⚡
 Frontend was written using Streamlit 👑
 
 ---
+### Important Contrinutors:
+
+[KeeganCarey](https://github.com/KeeganCarey)
 
 ### API Reference💾
 
