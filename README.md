@@ -9,9 +9,12 @@ API was written using FastAPI ⚡
 Frontend was written using Streamlit 👑
 
 ---
+
 ### Important Contrinutors:
 
 [KeeganCarey](https://github.com/KeeganCarey)
+
+---
 
 ### API Reference💾
 
@@ -22,15 +25,21 @@ Frontend was written using Streamlit 👑
 | `/list-docs`  | List the documents embedded in Chroma DB. When initialized, a folder named `chroma_db` should be created.                                                     |
 | `/delete-doc` | Delete the chosen document from Chroma |                                                                                                                       | 
 
+---
+
 ### Functions🧩:
 * set the language of the UI automatically based on your browser settings
 * Upload your own files
 * Delete unwanted files
 * chat based on your files
 
+---
+
 ### UI layout🖼️
 
 ![UI Layout](Screenshot-of-UI.png)
+
+---
 
 ### Road Map 🗺️
 
@@ -56,5 +65,7 @@ Frontend was written using Streamlit 👑
 - [ ] Secure the website
     - [ ] Authentication?
     - [ ] more...
+
+---
 
 ### Changelog
