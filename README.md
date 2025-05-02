@@ -91,13 +91,13 @@ Frontend was written using Streamlit 👑
 - Added a new function `get_text()`, which replaces all UI text with the selected language
 - All translations are implemented using python dictionaries
 
-#### 0.2.1
+  #### 0.2.1
 - Added localization for *Simplified Chinese*
 
-#### 0.2.2
+  #### 0.2.2
 - fix the issue of the web page not automatically updating after the user chose another language
 
-#### 0.2.3
+  #### 0.2.3
 - fix the issue of the language options not disappearing after the user chooses a new language
 
 #### 0.3 --- ***Auto-language Detection Update***🔤
