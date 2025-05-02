@@ -80,26 +80,38 @@ Frontend was written using Streamlit 👑
 
 ### Changelog📃
 
-#### 0.1 --- ***Initial Release***🎇
+#### 0.1 --- ***Initial Release: 2025/4/23***🎇 
 - Added the `/chat` `/upload-doc` `/list-docs` and `/delete-doc` endpoints (function specified below)
 - Added the Streamlit webUI, able to use all the 4 endpoints listed above and can also choose a llm chat model (only supports HuggingFace Endpoint)
 - Added error messages when error occurs
 
-#### 0.2 --- ***Localization Update***🌐
+#### 0.2 --- ***Localization Update: 2025/4/25***🌐
 - Added localization for *English* and *French*
 - Added `translations.py`, a new option in the sidebar `select language`
 - Added a new function `get_text()`, which replaces all UI text with the selected language
 - All translations are implemented using python dictionaries
 
-  #### 0.2.1
+  ##### 0.2.1
 - Added localization for *Simplified Chinese*
 
-  #### 0.2.2
-- fix the issue of the web page not automatically updating after the user chose another language
+  ##### 0.2.2
+- fixed the issue of the web page not automatically updating after the user chose another language
 
-  #### 0.2.3
-- fix the issue of the language options not disappearing after the user chooses a new language
+  ##### 0.2.3
+- fixed the issue of the language options not disappearing after the user chooses a new language
 
-#### 0.3 --- ***Auto-language Detection Update***🔤
+#### 0.3 --- ***Auto-language Detection Update: 2025/4/26***🔤
 - Installed a new python library (`streamlit-browser-language`) that detects the user's preferred browser language
 - Introduced auto-language detection, the UI language will be set to your browser's display language
+
+  ##### 0.3.1
+- fixed the issue of language not being able to be detected due to the mishandling of string output from the `streamlit-browser-language` package
+
+  ##### 0.3.2
+- fixed the issue of web page reloading when the user selects the same language
+
+#### 0.4 --- ***Operation: Health: 2025/5/1***💊
+- fixed the issue of the LLM keeps generating questions and answers unrelated to the original human input
+    - added a stop token when calling the llm: `stop_sequences=["Human:"]`
+- fixed the issue of the LLM outputting unnecessary information in its response (response includes `?\nAI:`)
+    - added a custom function ` slice_output()` to cut everything before `AI:`
