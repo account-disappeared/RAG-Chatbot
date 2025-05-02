@@ -20,6 +20,7 @@ Frontend was written using Streamlit 👑
 
 > [!NOTE]
 > Supported Languages: English, French, Simplified Chinese
+> 
 > Ongoing efforts: Traditional Chinese, Spanish, Italian, German and Japanese
 
 ---
