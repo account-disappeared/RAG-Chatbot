@@ -56,6 +56,7 @@ Frontend was written using Streamlit 👑
 - [x] string manipulation for llm output *(Completed)*
 - [x] end of sentence tokens *(Completed)*
 - [ ] dynamic chunking sizes *(in progress)*
+- [ ] better prompts *(in progress)*
 - [ ] hybrid search
 - [ ] Async Implementation
 - [ ] Visible Logging
@@ -69,7 +70,7 @@ Frontend was written using Streamlit 👑
 - [ ] A button to clear chat history *(in progress)*
 - [ ] auto-clean chat history *(in progress)*
 - [ ] when deleting a file, it automatically refreshes the document list *(in progress)*
-- [ ] Dockerize🐋 both front and backend *(in progress)*
+- [ ] Dockerize🐋 both front and backend
 - [ ] optimization for Chain logic
 - [ ] Have an actual domain
 - [ ] Secure the website
