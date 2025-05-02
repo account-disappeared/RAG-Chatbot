@@ -4,15 +4,23 @@
 
 ---
 
+LLM logic was written using Langchain🦜
+
 API was written using FastAPI ⚡
 
 Frontend was written using Streamlit 👑
 
 ---
 
-### Important Contrinutors:
+### Important Contributors:
 
 [KeeganCarey](https://github.com/KeeganCarey)
+
+---
+
+> [!NOTE]
+> Supported Languages: English, French, Simplified Chinese
+> Ongoing efforts: Traditional Chinese, Spanish, Italian, German and Japanese
 
 ---
 
@@ -59,6 +67,7 @@ Frontend was written using Streamlit 👑
 #### General Development
 - [ ] A button to clear chat history *(in progress)*
 - [ ] auto-clean chat history *(in progress)*
+- [ ] when deleting a file, it automatically refreshes the document list *(in progress)*
 - [ ] Dockerize🐋 both front and backend *(in progress)*
 - [ ] optimization for Chain logic
 - [ ] Have an actual domain
@@ -68,4 +77,28 @@ Frontend was written using Streamlit 👑
 
 ---
 
-### Changelog
+### Changelog📃
+
+#### 0.1 --- ***Initial Release***🎇
+- Added the `/chat` `/upload-doc` `/list-docs` and `/delete-doc` endpoints (function specified below)
+- Added the Streamlit webUI, able to use all the 4 endpoints listed above and can also choose a llm chat model (only supports HuggingFace Endpoint)
+- Added error messages when error occurs
+
+#### 0.2 --- ***Localization Update***🌐
+- Added localization for *English* and *French*
+- Added `translations.py`, a new option in the sidebar `select language`
+- Added a new function `get_text()`, which replaces all UI text with the selected language
+- All translations are implemented using python dictionaries
+
+#### 0.2.1
+- Added localization for *Simplified Chinese*
+
+#### 0.2.2
+- fix the issue of the web page not automatically updating after the user chose another language
+
+#### 0.2.3
+- fix the issue of the language options not disappearing after the user chooses a new language
+
+#### 0.3 --- ***Auto-language Detection Update***🔤
+- Installed a new python library (`streamlit-browser-language`) that detects the user's preferred browser language
+- Introduced auto-language detection, the UI language will be set to your browser's display language
