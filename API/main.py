@@ -7,6 +7,7 @@ from chroma_utils import index_document_to_chroma, delete_doc_from_chroma
 from dotenv import load_dotenv
 import uuid
 import logging
+from langchain_utils import slice_output
 
 load_dotenv()
 
@@ -25,10 +26,13 @@ def chat(query_input: QueryInput):
         "input": query_input.question,
         "chat_history": chat_history
     })['answer']
+    #sice the output
+    response = slice_output(answer)
     
-    insert_application_logs(session_id, query_input.question, answer, query_input.model.value)
-    logging.info(f"Session ID: {session_id}, AI Response: {answer}")
-    return QueryResponse(answer=answer, session_id=session_id, model=query_input.model)
+    #log and return the response
+    insert_application_logs(session_id, query_input.question, response, query_input.model.value)
+    logging.info(f"Session ID: {session_id}, AI Response: {response}")
+    return QueryResponse(answer=response, session_id=session_id, model=query_input.model)
 
 from fastapi import UploadFile, File, HTTPException
 import os
