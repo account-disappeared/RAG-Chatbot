@@ -35,9 +35,10 @@ llm = HuggingFaceEndpoint(
     endpoint_url="",
     huggingfacehub_api_token=hf_token,
     task="text-generation",
-    max_new_tokens=50000,
+    max_new_tokens=150,
     do_sample=False,
     repetition_penalty=1.03,
+    stop_sequences=["Human:"]
 )
 
 # Set up prompts
@@ -84,8 +85,16 @@ def reciprocal_rank_fusion(results: list[list], k=60, top_n=8):
     top = sorted(fused_scores.items(), key=lambda x: x[1], reverse=True)[:top_n]
     return [(loads(d), score) for d, score in top]
 
-#Fusion Retriever
+#slicing output
+def slice_output(output: str) -> str:
+    idx = output.find('AI:')
+    if idx != -1:
+        response = output[idx + 3:]
+    else:
+        response = output  # if no newline found, leave string unchanged
+    return response
 
+#Fusion Retriever
 class FusionRetriever(BaseRetriever):
     # 1) Tell Pydantic to accept any Python object as a field
     model_config = ConfigDict(arbitrary_types_allowed=True)
