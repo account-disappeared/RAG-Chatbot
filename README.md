@@ -44,8 +44,8 @@ Frontend was written using Streamlit 👑
 ### Road Map 🗺️
 
 #### API Improvements🛠️
-- [ ] string manipulation for llm output *(in progress)*
-- [ ] end of sentence tokens *(in progress)*
+- [x] string manipulation for llm output *(Completed)*
+- [x] end of sentence tokens *(Completed)*
 - [ ] dynamic chunking sizes *(in progress)*
 - [ ] hybrid search
 - [ ] Async Implementation
