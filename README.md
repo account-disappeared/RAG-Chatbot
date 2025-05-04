@@ -57,6 +57,7 @@ Frontend was written using Streamlit 👑
 - [x] end of sentence tokens *(Completed)*
 - [ ] dynamic chunking sizes *(in progress)*
 - [ ] better prompts *(in progress)*
+- [ ] better embeddings model *(in progress)*
 - [ ] hybrid search
 - [ ] Async Implementation
 - [ ] Visible Logging
