@@ -90,6 +90,7 @@ Frontend was written using Streamlit 👑
 - Added the `/chat` `/upload-doc` `/list-docs` and `/delete-doc` endpoints (function specified below)
 - Added the Streamlit webUI, able to use all the 4 endpoints listed above and can also choose a llm chat model (only supports HuggingFace Endpoint)
 - Added error messages when error occurs
+- used [jinaai/jina-embeddings-v2-base-zh](https://huggingface.co/jinaai/jina-embeddings-v2-base-zh) as the embedding model
 
 #### 0.2 --- ***Localization Update: 2025/4/25***🌐
 - Added localization for *English* and *French*
