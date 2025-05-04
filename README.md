@@ -61,6 +61,7 @@ Frontend was written using Streamlit 👑
 - [ ] Async Implementation
 - [ ] Visible Logging
 - [ ] Stable & affordable chatbot provider (No OpenAI)
+- [ ] Search the Web
 
 #### UI Improvements🎨
 - [x] change UI language *(Completed)*
