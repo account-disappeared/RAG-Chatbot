@@ -73,6 +73,7 @@ Frontend was written using Streamlit 👑
 - [ ] A button to clear chat history *(in progress)*
 - [ ] auto-clean chat history *(in progress)*
 - [ ] when deleting a file, it automatically refreshes the document list *(in progress)*
+- [ ] Return sources
 - [ ] Dockerize🐋 both front and backend
 - [ ] optimization for Chain logic
 - [ ] Have an actual domain
