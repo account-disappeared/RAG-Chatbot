@@ -121,3 +121,6 @@ Frontend was written using Streamlit 👑
     - added a stop token when calling the llm: `stop_sequences=["Human:"]`
 - fixed the issue of the LLM outputting unnecessary information in its response (response includes `?\nAI:`)
     - added a custom function ` slice_output()` to cut everything before `AI:`
+  ##### 0.4.1 --- 2025/5/4
+- migrated to a newer embeddings model, [jinaai/jina-embeddings-v3](https://huggingface.co/jinaai/jina-embeddings-v3)
+      - now supports over 100 languages, check their [official page](https://huggingface.co/jinaai/jina-embeddings-v3#supported-languages)
