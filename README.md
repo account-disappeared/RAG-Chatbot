@@ -66,6 +66,7 @@ Frontend was written using Streamlit 👑
 #### UI Improvements🎨
 - [x] change UI language *(Completed)*
 - [ ] Enable Streaming *(Completed)*
+- [ ] custom CSS styling for Streamlit Widgets
 - [ ] rebuild frontend using React⚛️
 
 #### General Development
