@@ -73,7 +73,7 @@ Frontend was written using Streamlit 👑
 #### General Development
 - [ ] A button to clear chat history *(in progress)*
 - [ ] auto-clean chat history *(in progress)*
-- [ ] when deleting a file, it automatically refreshes the document list *(in progress)*
+- [x] when deleting a file, it automatically refreshes the document list *(completed)*
 - [ ] Return sources *(in progress)*
 - [ ] Dockerize🐋 both front and backend
 - [ ] optimization for Chain logic
@@ -138,3 +138,5 @@ Frontend was written using Streamlit 👑
     - After Dynamic Chunking
       
       Finally, Blondin's legacy has been carefully preserved and romanticized through history. Stories of his daring feats have been passed down, often                  embellished, contributing to his almost mythical status. He represents a bygone era of grand spectacle and individual heroism, a time when a single person         could capture the world's imagination with a breathtaking display of skill and courage.
+- Fixed the issue of Document List not reflecting the changes when a user deletes a document
+    - added `st.rerun()` to refresh the UI 
