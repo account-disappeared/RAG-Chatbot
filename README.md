@@ -55,7 +55,7 @@ Frontend was written using Streamlit 👑
 #### API Improvements🛠️
 - [x] string manipulation for llm output *(Completed)*
 - [x] end of sentence tokens *(Completed)*
-- [ ] dynamic chunking sizes *(in progress)*
+- [x] dynamic chunking sizes *(Completed)*
 - [ ] better prompts *(in progress)*
 - [x] better embeddings model *(Completed)*
 - [ ] hybrid search
@@ -129,3 +129,12 @@ Frontend was written using Streamlit 👑
     - Add ASCII full-stop `.`, Unicode fullwidth full stop `．` (used in Chinese text), and
     - ideographic full stop `。` (used in Japanese and Chinese), Zero-width space used in Thai, Myanmar, Kmer, and Japanese
     - ASCII comma `,`, Unicode fullwidth comma `，`, and Unicode ideographic comma `、`
+- Dynamic chunking was implemented, which decides the sizes of the split chunks depneding on the overall character/size of the document
+    - Before Dynamic Chunking (`chunk_size=1000`):
+ 
+      Moreover, Blondin's achievements tapped into a fundamental human fascination with risk and the limits of human capability. We are drawn to those who push          boundaries, who venture into the realm of the seemingly impossible. Blondin embodied this spirit of exploration, not of geographical frontiers, but of the         frontiers of human skill and nerve. His walks across the Niagara were a powerful demonstration of what dedication, training, and an indomitable will could         achieve. In a world that often feels constrained by limitations, Blondin offered a thrilling glimpse of human potential unleashed.
+      Finally, Blondin's legacy has been carefully preserved and romanticized through history. Stories of his daring feats have been passed down, often                  embellished, contributing to his almost mythical status. He represents a bygone era of grand spectacle and individual heroism, a time when a single person         could capture the world's imagination with a breathtaking display of skill and courage.
+
+    - After Dynamic Chunking
+      
+      Finally, Blondin's legacy has been carefully preserved and romanticized through history. Stories of his daring feats have been passed down, often                  embellished, contributing to his almost mythical status. He represents a bygone era of grand spectacle and individual heroism, a time when a single person         could capture the world's imagination with a breathtaking display of skill and courage.
