@@ -56,7 +56,7 @@ Frontend was written using Streamlit 👑
 - [x] string manipulation for llm output *(Completed)*
 - [x] end of sentence tokens *(Completed)*
 - [x] dynamic chunking sizes *(Completed)*
-- [ ] better prompts *(in progress)*
+- [x] better prompts *(Completed)*
 - [x] better embeddings model *(Completed)*
 - [ ] hybrid search
 - [ ] Async Implementation
@@ -142,3 +142,5 @@ Frontend was written using Streamlit 👑
     - added `st.rerun()` to refresh the UI
 - Even MORE languages
     - Added Chat-GPT translated localization for *Spanish*, *Italian*, *German* and *Japanese*
+- BETTER promts
+    - Improved existing prompts: `contextualize_q_system_prompt`, `prompt` and `fusion_prompt` for better direction following and better response 
