@@ -74,7 +74,7 @@ Frontend was written using Streamlit 👑
 - [ ] A button to clear chat history *(in progress)*
 - [ ] auto-clean chat history *(in progress)*
 - [ ] when deleting a file, it automatically refreshes the document list *(in progress)*
-- [ ] Return sources
+- [ ] Return sources *(in progress)*
 - [ ] Dockerize🐋 both front and backend
 - [ ] optimization for Chain logic
 - [ ] Have an actual domain
@@ -124,4 +124,8 @@ Frontend was written using Streamlit 👑
     - added a custom function ` slice_output()` to cut everything before `AI:`
   ##### 0.4.1 --- 2025/5/4
 - migrated to a newer embeddings model, [jinaai/jina-embeddings-v3](https://huggingface.co/jinaai/jina-embeddings-v3)
-      - now supports over 100 languages, check their [official page](https://huggingface.co/jinaai/jina-embeddings-v3#supported-languages)
+    - now supports over 100 languages, check their [official page](https://huggingface.co/jinaai/jina-embeddings-v3#supported-languages)
+- Improved 'text_splitter" to adjust for languages without word boundaries (Chinese, Japanese.etc.)
+    - Add ASCII full-stop `.`, Unicode fullwidth full stop `．` (used in Chinese text), and
+    - ideographic full stop `。` (used in Japanese and Chinese), Zero-width space used in Thai, Myanmar, Kmer, and Japanese
+    - ASCII comma `,`, Unicode fullwidth comma `，`, and Unicode ideographic comma `、`
