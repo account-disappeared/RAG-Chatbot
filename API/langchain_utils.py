@@ -32,7 +32,7 @@ output_parser = StrOutputParser()
 
 #LLM model
 llm = HuggingFaceEndpoint(
-    endpoint_url="",
+    endpoint_url="https://aowxr49vng3zvk4q.us-east-1.aws.endpoints.huggingface.cloud",
     huggingfacehub_api_token=hf_token,
     task="text-generation",
     max_new_tokens=150,
@@ -44,8 +44,17 @@ llm = HuggingFaceEndpoint(
 # Set up prompts
 contextualize_q_system_prompt = (
     """
-    Given a chat history and the most recent user question (which may reference context from the chat history), output a standalone question that can be understood without the chat history.
-    Do not answer the question, only rephrase it if necessary, otherwise return it as is:
+    SYSTEM ROLE: You are a query reformulation system with ONE purpose only: to convert conversational queries into standalone, vector-search-friendly questions.
+
+    INPUT: A chat history and the user's most recent question that may reference context from that history.
+
+    YOUR TASK: 
+    1. ONLY output a standalone question that could be understood without any chat history
+    2. NEVER answer the question or provide information
+    3. NEVER add explanations or commentary
+    4. For pronouns like "he/she/it/they/this/that" in the user's question, replace with specific nouns from context
+    5. If the question is already standalone, return it unchanged
+    6. Format your response as "[your reformulated question]"
     """
 )
 
@@ -55,16 +64,47 @@ context_prompt = ChatPromptTemplate.from_messages([
     ("human", "{input}"),
 ])
 
+#main llm prompt
 prompt = ChatPromptTemplate.from_messages([
-    ("system", "You are the assistant of the question-answering task. Use the following retrieved context to answer the question. If you don't know the answer, just say you don't know. Only include the answer in your answer, and don't include other irrelevant content, such as 'text', 'AI':"),
+    ("system", """You are an expert assistant for question-answering tasks with access to retrieved information. Your goal is to provide accurate, helpful, and well-structured answers in Markdown.
+
+    CONTEXT INSTRUCTIONS:
+    - The context below contains relevant information to answer the user's question
+    - If the context is insufficient, acknowledge the limitations of your response
+    - If you don't know the answer, clearly state that you don't have enough information
+
+    RESPONSE GUIDELINES:
+    1. Primarily use the provided context to formulate your answer
+    2. Structure your response with clear paragraphs and logical flow
+    3. For factual information, cite which part of the context you're using at the end of the response
+    4. Use markdown formatting to improve readability when appropriate
+    5. Start your response with "AI: " followed by your answer
+    6. Keep your response concise but complete"""),
     ("system", "Context: {context}"),
     MessagesPlaceholder(variable_name="chat_history"),
     ("human", "{input}")
 ])
 
-fusion_prompt = """You are a helpful assistant that generates 5 search queries from a single user question, and only contains 5 search queries in the answer:
-{question}
-Output(5 queries):"""
+fusion_prompt = """SYSTEM: You are a search query generation specialist tasked with creating diverse and effective search queries from a user question.
+
+YOUR TASK:
+1. Analyze the user's question to identify the core information need
+2. Generate EXACTLY 5 distinct search queries that approach the question from different angles
+3. Each query should:
+   - Be concise (3-8 words)
+   - Use different keywords and phrasings
+   - Cover various aspects of the question
+   - Be formatted for vector searches (no special operators unless specifically needed)
+4. Format output as a numbered list with ONLY the queries, no explanations
+
+Input question: {question}
+
+Output (5 queries only):
+1. 
+2. 
+3. 
+4. 
+5. """
 prompt_rag_fusion = LCPT.from_template(fusion_prompt)
 
 #generate RAG fusion queries
@@ -94,12 +134,14 @@ def slice_output(output: str) -> str:
         response = output  # if no newline found, leave string unchanged
     return response
 
+
 #Fusion Retriever
+
 class FusionRetriever(BaseRetriever):
     # 1) Tell Pydantic to accept any Python object as a field
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
-    # 2) Declare exactly the fields:
+    # 2) Declare exactly the fields you’ll pass in:
     base: BaseRetriever
     qgen: Any
     rrf: Any
