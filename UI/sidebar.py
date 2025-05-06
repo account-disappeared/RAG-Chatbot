@@ -18,7 +18,11 @@ def display_sidebar():
     language_names = {
         "en": "English",
         "fr": "Français",
-        "zh": "简体中文"
+        "zh": "简体中文",
+        "es": "Español",
+        "it": "Italiano",
+        "de": "Deutsch",
+        "ja": "日本語",
     }
 
     # Display language options
@@ -106,7 +110,8 @@ def display_sidebar():
                             file_id=selected_file_id
                         )
                     )
-                    st.session_state.documents = list_documents()  # Refresh the list after deletion
+                    st.session_state.documents = list_documents() # Refresh the list after deletion
+                    st.rerun() #refresh UI to reflect the change
                 else:
                     st.sidebar.error(
                         get_text(
