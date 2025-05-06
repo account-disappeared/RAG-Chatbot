@@ -26,9 +26,10 @@ def chat(query_input: QueryInput):
         "input": query_input.question,
         "chat_history": chat_history
     })['answer']
+
     #sice the output
     response = slice_output(answer)
-    
+
     #log and return the response
     insert_application_logs(session_id, query_input.question, response, query_input.model.value)
     logging.info(f"Session ID: {session_id}, AI Response: {response}")
