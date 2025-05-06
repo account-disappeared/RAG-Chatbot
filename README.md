@@ -58,11 +58,12 @@ Frontend was written using Streamlit 👑
 - [x] dynamic chunking sizes *(Completed)*
 - [x] better prompts *(Completed)*
 - [x] better embeddings model *(Completed)*
+- [ ] Dynamic prompting for different tasks
 - [ ] hybrid search
 - [ ] Async Implementation
 - [ ] Visible Logging
-- [ ] Stable & affordable chatbot provider (No OpenAI)
-- [ ] Search the Web
+- [ ] Stable & affordable chatbot provider (Claude???)
+- [ ] Web Search & Web Scraping
 
 #### UI Improvements🎨
 - [x] change UI language *(Completed)*
