@@ -53,20 +53,20 @@ Frontend was written using Streamlit 👑
 ### Road Map 🗺️
 
 #### API Improvements🛠️
-- [x] string manipulation for llm output *(Completed)*
-- [x] end of sentence tokens *(Completed)*
-- [x] dynamic chunking sizes *(Completed)*
-- [x] better prompts *(Completed)*
-- [x] better embeddings model *(Completed)*
+- [x] string manipulation for llm output 
+- [x] end of sentence tokens
+- [x] dynamic chunking sizes
+- [x] better prompts
+- [x] better embeddings model
 - [ ] Dynamic prompting for different tasks
 - [ ] hybrid search
 - [ ] Async Implementation
 - [ ] Visible Logging
-- [ ] Stable & affordable chatbot provider (Claude???)
+- [x] Stable & affordable chatbot provider (Gemini)
 - [ ] Web Search & Web Scraping
 
 #### UI Improvements🎨
-- [x] change UI language *(Completed)*
+- [x] change UI language
 - [ ] Enable Streaming *(in progress)*
 - [ ] custom CSS styling for Streamlit Widgets *(in progress)*
 - [ ] rebuild frontend using React⚛️
@@ -74,7 +74,7 @@ Frontend was written using Streamlit 👑
 #### General Development
 - [ ] A button to clear chat history *(in progress)*
 - [ ] auto-clean chat history *(in progress)*
-- [x] when deleting a file, it automatically refreshes the document list *(completed)*
+- [x] when deleting a file, it automatically refreshes the document list
 - [ ] Return sources *(in progress)*
 - [ ] Dockerize🐋 both front and backend
 - [ ] optimization for Chain logic
