@@ -144,4 +144,8 @@ Frontend was written using Streamlit 👑
     - Added Chat-GPT translated localization for *Spanish*, *Italian*, *German* and *Japanese*
 - BETTER promts
     - Improved existing prompts: `contextualize_q_system_prompt`, `prompt` and `fusion_prompt` for better direction following and better response
+    ##### 0.4.2 --- 2025/6/17
 - Added a note for Linux compatibility issues with the `python-magic-bin` package
+
+#### 0.5 --- ***Operation: Chain: 2025/6/17***🔗
+- migrated from HF Inference Endpoint to Gemini API, currently using `Gemini 2.0 Flash`.
