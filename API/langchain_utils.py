@@ -1,13 +1,9 @@
-from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
-from langchain_core.output_parsers import StrOutputParser
-from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain.chains import create_history_aware_retriever, create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from typing import List
 from langchain_core.documents import Document
 import os
 from langchain.prompts import ChatPromptTemplate as LCPT
-from langchain_huggingface import ChatHuggingFace as LCHF
 from chroma_utils import vectorstore
 from langchain.load import dumps, loads
 from typing import List, Tuple, Dict, Any
@@ -16,29 +12,26 @@ from langchain.schema import BaseRetriever
 from langchain_core.runnables import RunnablePassthrough
 from dotenv import load_dotenv
 
-#load enviroment variables
+# Load environment variables
 load_dotenv()
 
-# Check for HuggingFace API token
-hf_token = os.getenv("HUGGINGFACEHUB_API_TOKEN")
-if not hf_token:
-    raise ValueError("HUGGINGFACEHUB_API_TOKEN environment variable is not set. Please set it with your HuggingFace API token.")
+# Check for Google API key
+google_api_key = os.getenv("GOOGLE_API_KEY")
+if not google_api_key:
+    raise ValueError("GOOGLE_API_KEY environment variable is not set. Please set it with your Google API key.")
 
-#define retriever
+# Define retriever
 retriever = vectorstore.as_retriever()
 
-#string out parser for LLM output
+# String output parser for LLM output
 output_parser = StrOutputParser()
 
-#LLM model
-llm = HuggingFaceEndpoint(
-    endpoint_url="",
-    huggingfacehub_api_token=hf_token,
-    task="text-generation",
-    max_new_tokens=150,
-    do_sample=False,
-    repetition_penalty=1.03,
-    stop_sequences=["Human:"]
+# Initialize Google Gemini 2.0 Flash model
+llm = ChatGoogleGenerativeAI(
+    model="gemini-2.0-flash",
+    temperature=0.8,
+    max_tokens=500,  # Gemini uses max_tokens instead of max_new_tokens
+    google_api_key=google_api_key,
 )
 
 # Set up prompts
