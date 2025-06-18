@@ -19,9 +19,9 @@ Frontend was written using Streamlit 👑
 ---
 
 > [!NOTE]
-> For Linux systems, the `python-magic-bin` package will not work
-> run `sudo apt install libmagic1 libmagic-dev`
-> intead of `python-magic-bin`, install `python-magic`
+> For Linux systems, the `python-magic-bin` package will not work  
+> run `sudo apt install libmagic1 libmagic-dev`  
+> intead of `python-magic-bin`, install `python-magic`  
 ---
 
 ### API Reference💾
