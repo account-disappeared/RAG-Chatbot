@@ -19,10 +19,9 @@ Frontend was written using Streamlit 👑
 ---
 
 > [!NOTE]
-> Supported Languages: English, French, Simplified Chinese
-> 
-> Chat-GPT translated: Traditional Chinese, Spanish, Italian, German and Japanese
-
+> For Linux systems, the `python-magic-bin` package will not work
+> run `sudo apt install libmagic1 libmagic-dev`
+> intead of `python-magic-bin`, install `python-magic`
 ---
 
 ### API Reference💾
@@ -144,4 +143,5 @@ Frontend was written using Streamlit 👑
 - Even MORE languages
     - Added Chat-GPT translated localization for *Spanish*, *Italian*, *German* and *Japanese*
 - BETTER promts
-    - Improved existing prompts: `contextualize_q_system_prompt`, `prompt` and `fusion_prompt` for better direction following and better response 
+    - Improved existing prompts: `contextualize_q_system_prompt`, `prompt` and `fusion_prompt` for better direction following and better response
+- Added a note for Linux compatibility issues with the `python-magic-bin` package
