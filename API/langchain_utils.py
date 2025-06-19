@@ -1,3 +1,6 @@
+from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain.chains import create_history_aware_retriever, create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from typing import List
@@ -157,7 +160,7 @@ fusion_retriever = FusionRetriever(
 )
 
 #final
-def get_rag_chain(model="Gemma3"):
+def get_rag_chain(model="Gemini"):
     chat_model = ChatHuggingFace(llm=llm)
     history_aware_retriever = create_history_aware_retriever(
         llm=llm,
