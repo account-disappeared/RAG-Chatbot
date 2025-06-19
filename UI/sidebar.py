@@ -50,7 +50,7 @@ def display_sidebar():
         st.rerun()
 
     # Sidebar: Model Selection
-    model_options = ["Gemma3"]
+    model_options = ["Gemini"]
     st.sidebar.selectbox(
         get_text("select_model", st.session_state.language),
         options=model_options,
