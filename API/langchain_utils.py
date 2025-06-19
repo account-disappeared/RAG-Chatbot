@@ -32,7 +32,7 @@ output_parser = StrOutputParser()
 # Initialize Google Gemini 2.0 Flash model
 llm = ChatGoogleGenerativeAI(
     model="gemini-2.0-flash",
-    temperature=0.8,
+    temperature=0.4,
     max_tokens=500,  # Gemini uses max_tokens instead of max_new_tokens
     google_api_key=google_api_key,
 )
