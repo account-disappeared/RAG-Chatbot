@@ -86,43 +86,43 @@ Frontend was written using Streamlit 👑
 
 ### Changelog📃
 
-#### 0.1 --- ***Initial Release: 2025/4/23***🎇 
+#### v0.1 --- ***Initial Release: 2025/4/23***🎇 
 - Added the `/chat` `/upload-doc` `/list-docs` and `/delete-doc` endpoints (function specified below)
 - Added the Streamlit webUI, able to use all the 4 endpoints listed above and can also choose a llm chat model (only supports HuggingFace Endpoint)
 - Added error messages when error occurs
 - used [jinaai/jina-embeddings-v2-base-zh](https://huggingface.co/jinaai/jina-embeddings-v2-base-zh) as the embedding model
 
-#### 0.2 --- ***Localization Update: 2025/4/25***🌐
+#### v0.2 --- ***Localization Update: 2025/4/25***🌐
 - Added localization for *English* and *French*
 - Added `translations.py`, a new option in the sidebar `select language`
 - Added a new function `get_text()`, which replaces all UI text with the selected language
 - All translations are implemented using python dictionaries
 
-  ##### 0.2.1
+  ##### v0.2.1
 - Added localization for *Simplified Chinese*
 
-  ##### 0.2.2
+  ##### v0.2.2
 - fixed the issue of the web page not automatically updating after the user chose another language
 
-  ##### 0.2.3
+  ##### v0.2.3
 - fixed the issue of the language options not disappearing after the user chooses a new language
 
-#### 0.3 --- ***Auto-language Detection Update: 2025/4/26***🔤
+#### v0.3 --- ***Auto-language Detection Update: 2025/4/26***🔤
 - Installed a new python library (`streamlit-browser-language`) that detects the user's preferred browser language
 - Introduced auto-language detection, the UI language will be set to your browser's display language
 
-  ##### 0.3.1
+  ##### v0.3.1
 - fixed the issue of language not being able to be detected due to the mishandling of string output from the `streamlit-browser-language` package
 
-  ##### 0.3.2
+  ##### v0.3.2
 - fixed the issue of web page reloading when the user selects the same language
 
-#### 0.4 --- ***Operation: Health: 2025/5/1***💊
+#### v0.4 --- ***Operation: Health: 2025/5/1***💊
 - fixed the issue of the LLM keeps generating questions and answers unrelated to the original human input
     - added a stop token when calling the llm: `stop_sequences=["Human:"]`
 - fixed the issue of the LLM outputting unnecessary information in its response (response includes `?\nAI:`)
     - added a custom function ` slice_output()` to cut everything before `AI:`
-  ##### 0.4.1 --- 2025/5/4
+  ##### v0.4.1 --- 2025/5/4
 - migrated to a newer embeddings model, [jinaai/jina-embeddings-v3](https://huggingface.co/jinaai/jina-embeddings-v3)
     - now supports over 100 languages, check their [official page](https://huggingface.co/jinaai/jina-embeddings-v3#supported-languages)
 - Improved 'text_splitter" to adjust for languages without word boundaries (Chinese, Japanese.etc.)
@@ -144,8 +144,9 @@ Frontend was written using Streamlit 👑
     - Added Chat-GPT translated localization for *Spanish*, *Italian*, *German* and *Japanese*
 - BETTER promts
     - Improved existing prompts: `contextualize_q_system_prompt`, `prompt` and `fusion_prompt` for better direction following and better response
-    ##### 0.4.2 --- 2025/6/17
+    ##### v0.4.2 --- 2025/6/17
 - Added a note for Linux compatibility issues with the `python-magic-bin` package
 
-#### 0.5 --- ***Operation: Chain: 2025/6/17***🔗
+#### v0.5 --- ***Operation: Chain: 2025/6/17***🔗
 - migrated from HF Inference Endpoint to Gemini API, currently using `Gemini 2.0 Flash`.
+- Fixed the issue of Gemini not showned as the model used (in `pydantic_models.py` and `sidebar.py`)
