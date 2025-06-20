@@ -75,7 +75,7 @@ Frontend was written using Streamlit 👑
 - [ ] auto-clean chat history *(in progress)*
 - [x] when deleting a file, it automatically refreshes the document list
 - [ ] Return sources *(in progress)*
-- [ ] Dockerize🐋 both front and backend
+- [x] Dockerize🐋 both front and backend
 - [ ] optimization for Chain logic
 - [ ] Have an actual domain
 - [ ] Secure the website
@@ -150,3 +150,10 @@ Frontend was written using Streamlit 👑
 #### v0.5 --- ***Operation: Chain: 2025/6/17***🔗
 - migrated from HF Inference Endpoint to Gemini API, currently using `Gemini 2.0 Flash`.
 - Fixed the issue of Gemini not showned as the model used (in `pydantic_models.py` and `sidebar.py`)
+- tuned the parameters of Gemini to achieve better results (e.g. `temperature = 0.4` compared to 0.8 from before)
+- Shortened the multi-query generation from 5 queries to 3, improving the speed, also updated the prompts to reflect that change.
+
+  #### v0.5.1 --- 2025/6/19
+- Simplfied the chain logic in `langchain_utils.py`, removing redundant classes and combining different queries for faster and better response
+- Removed the old prompts and the complex wrapping of different retrivers
+- Reciprocal Rank Fusion Algorithim now only returns the top 5 documents
