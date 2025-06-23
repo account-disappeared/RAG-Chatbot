@@ -12,9 +12,10 @@ Frontend was written using Streamlit 👑
 
 ---
 
-### Important Contributors:
-
-[KeeganCarey](https://github.com/KeeganCarey)
+> [!WARNING]
+> Currently the `index.html` cannot handle multi-turn chats
+> The HTML page is more suitable for those who processed their documents already    
+> It will not be fixed in close future
 
 ---
 
@@ -43,9 +44,16 @@ Frontend was written using Streamlit 👑
 
 ---
 
-### UI layout🖼️
-
-![UI Layout](Screenshot-of-UI.png)
+### Streamlit vs. HTML page
+| Feature | Streamlit | HTML |
+| --- | --- | --- |
+| UI Language | 7 languages | 2 languages (English and simplfied Chinese) | 
+| auto detect browser language | ✅ | ✅ |
+| select-model | ✅ | ❌ |
+| upload/delete/view documents | ✅ | ❌ |
+| chat | ✅ | ✅ |
+| Restart/clear chat session | ❌ | ✅ | 
+| light/dark mode | ✅ | ❌ |
 
 ---
 
@@ -67,16 +75,16 @@ Frontend was written using Streamlit 👑
 #### UI Improvements🎨
 - [x] change UI language
 - [ ] Enable Streaming *(in progress)*
-- [ ] custom CSS styling for Streamlit Widgets *(in progress)*
-- [ ] rebuild frontend using React⚛️
+- [ ] custom CSS styling for Streamlit Widgets 
+- [x] rebuild frontend using React⚛️ *(Still working on it)*
 
 #### General Development
-- [ ] A button to clear chat history *(in progress)*
+- [ ] A button to clear chat history *(the html webpage has this function)*
 - [ ] auto-clean chat history *(in progress)*
 - [x] when deleting a file, it automatically refreshes the document list
 - [ ] Return sources *(in progress)*
 - [x] Dockerize🐋 both front and backend
-- [ ] optimization for Chain logic
+- [x] optimization for Chain logic
 - [ ] Have an actual domain
 - [ ] Secure the website
     - [ ] Authentication?
@@ -157,3 +165,8 @@ Frontend was written using Streamlit 👑
 - Simplfied the chain logic in `langchain_utils.py`, removing redundant classes and combining different queries for faster and better response
 - Removed the old prompts and the complex wrapping of different retrivers
 - Reciprocal Rank Fusion Algorithim now only returns the top 5 documents
+
+  #### v0.5.1 --- 2025/6/22
+- added a HTML webpage called `index.html`
+- Added CORS middleware in `API\main.py` to correctly accept input from `index.html`
+- made sessionID optional in `index.html` due to it returning `null` when starting a chat and failling the pydantic validation
