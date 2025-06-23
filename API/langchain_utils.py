@@ -166,9 +166,7 @@ def enhanced_retrieval(input_dict):
     else:
         return retriever.get_relevant_documents(input_dict["input"])
 
-# Updated slicing output function for Gemini responses
 def slice_output(output: str) -> str:
-    # Gemini might not include "AI:" prefix, so we'll handle both cases
     if 'AI:' in output:
         idx = output.find('AI:')
         response = output[idx + 3:].strip()
