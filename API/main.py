@@ -14,6 +14,22 @@ load_dotenv()
 logging.basicConfig(filename='app.log', level=logging.INFO)
 app = FastAPI()
 
+# Configure CORS middleware to work with React Webpage
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:8080",
+        "http://127.0.0.1:8080",
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "*"
+    ],
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["*"],
+    expose_headers=["*"]
+)
+
 @app.post("/chat", response_model=QueryResponse)
 def chat(query_input: QueryInput):
     session_id = query_input.session_id
