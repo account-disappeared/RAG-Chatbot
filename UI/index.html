@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Langchain RAG Chatbot</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #root {
+            height: 100vh;
+        }
+
+        .app-container {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 240px;
+            background-color: #ffffff;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            overflow-y: auto;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .sidebar h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .sidebar section {
+            margin: 0;
+        }
+
+        .select-wrapper {
+            margin-bottom: 10px;
+        }
+
+        .select-wrapper label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .select-wrapper select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            background-color: white;
+            cursor: pointer;
+        }
+
+        .caption {
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .button.danger {
+            background-color: #dc3545;
+        }
+
+        .button.danger:hover {
+            background-color: #c82333;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #fafafa;
+        }
+
+        .header {
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        /* Chat Container */
+        .chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .messages-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .message {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .message-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #007bff;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .message.assistant .message-avatar {
+            background-color: #28a745;
+        }
+
+        .message-content {
+            flex: 1;
+            padding: 12px 16px;
+            background-color: #f1f3f5;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .message.user .message-content {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .details-expander {
+            margin-top: 10px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+
+        .details-toggle {
+            font-size: 12px;
+            color: #007bff;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .details-content {
+            margin-top: 10px;
+            font-size: 12px;
+        }
+
+        .details-content h4 {
+            margin-bottom: 5px;
+            color: #666;
+        }
+
+        .details-content pre {
+            background-color: #f5f5f5;
+            padding: 8px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin-bottom: 10px;
+        }
+
+        /* Chat Input */
+        .chat-input-container {
+            display: flex;
+            gap: 10px;
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .chat-input:focus {
+            border-color: #007bff;
+        }
+
+        .send-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .send-button:hover {
+            background-color: #0056b3;
+        }
+
+        .send-button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Loading and Status Messages */
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top-color: #007bff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #999;
+            margin-top: 50px;
+            font-size: 16px;
+        }
+
+        /* Confirmation Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal {
+            background-color: white;
+            padding: 24px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .modal h3 {
+            margin-bottom: 16px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .modal p {
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .modal-button {
+            padding: 8px 16px;
+            border-radius: 4px;
+            border: none;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .modal-button.cancel {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .modal-button.cancel:hover {
+            background-color: #e0e0e0;
+        }
+
+        .modal-button.confirm {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .modal-button.confirm:hover {
+            background-color: #c82333;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .app-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                max-height: 30vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        // React is available globally from the CDN
+        const { useState, useEffect, useRef } = React;
+
+        // Translations object
+        const translations = {
+            en: {
+                app_title: "Langchain RAG Chatbot",
+                chat_placeholder: "Ask me anything...",
+                generating: "Generating response...",
+                api_error: "Failed to get a response from the API. Please try again.",
+                details: "Details",
+                generated_answer: "Generated Answer",
+                model_used: "Model Used",
+                session_id: "Session ID",
+                select_language: "Select Language",
+                auto_detected: "Auto-detected from browser ({browser_lang})",
+                send: "Send",
+                type_message: "Type your message...",
+                clear_session: "Clear Session",
+                clear_session_confirm: "Clear Chat History?",
+                clear_session_message: "This will clear all messages and start a new conversation. This action cannot be undone.",
+                cancel: "Cancel",
+                confirm_clear: "Clear",
+                session_cleared: "Session cleared successfully"
+            },
+            zh: {
+                app_title: "Langchain RAG 聊天机器人",
+                chat_placeholder: "有什么我可以帮助您的吗...",
+                generating: "正在生成回复…",
+                api_error: "无法从 API 获取回复，请重试。",
+                details: "详细信息",
+                generated_answer: "生成的回答",
+                model_used: "使用的模型",
+                session_id: "会话 ID",
+                select_language: "选择语言",
+                auto_detected: "自动从浏览器检测 ({browser_lang})",
+                send: "发送",
+                type_message: "输入您的消息...",
+                clear_session: "清除会话",
+                clear_session_confirm: "清除聊天记录？",
+                clear_session_message: "这将清除所有消息并开始新的对话。此操作无法撤消。",
+                cancel: "取消",
+                confirm_clear: "清除",
+                session_cleared: "会话已成功清除"
+            }
+        };
+
+        // API configuration
+        const API_BASE_URL = 'http://127.0.0.1:8000';
+
+        // Helper function to get translated text
+        const getText = (key, lang = 'en', params = {}) => {
+            try {
+                let text = translations[lang] && translations[lang][key]
+                    ? translations[lang][key]
+                    : translations['en'][key] || key;
+
+                // Replace parameters
+                Object.keys(params).forEach(param => {
+                    text = text.replace(new RegExp(`\\{${param}\\}`, 'g'), params[param]);
+                });
+                return text;
+            } catch (error) {
+                console.error('Translation error:', error);
+                return key;
+            }
+        };
+
+        // Detect browser language
+        const detectBrowserLanguage = () => {
+            const browserLang = navigator.language || navigator.userLanguage || 'en';
+            const primaryLang = browserLang.split('-')[0].toLowerCase();
+            const availableLanguages = Object.keys(translations);
+            return availableLanguages.includes(primaryLang) ? primaryLang : 'en';
+        };
+
+        // Confirmation Modal Component
+        const ConfirmationModal = ({ isOpen, onClose, onConfirm, language }) => {
+            if (!isOpen) return null;
+
+            return (
+                <div className="modal-overlay" onClick={onClose}>
+                    <div className="modal" onClick={(e) => e.stopPropagation()}>
+                        <h3>{getText('clear_session_confirm', language)}</h3>
+                        <p>{getText('clear_session_message', language)}</p>
+                        <div className="modal-buttons">
+                            <button className="modal-button cancel" onClick={onClose}>
+                                {getText('cancel', language)}
+                            </button>
+                            <button className="modal-button confirm" onClick={onConfirm}>
+                                {getText('confirm_clear', language)}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // Message Component
+        const Message = ({ message, language }) => {
+            const [showDetails, setShowDetails] = useState(false);
+            const isAssistant = message.role === 'assistant';
+
+            return (
+                <div className={`message ${message.role}`}>
+                    <div className="message-avatar">
+                        {isAssistant ? 'AI' : 'U'}
+                    </div>
+                    <div className="message-content">
+                        {message.content}
+                        {isAssistant && message.details && (
+                            <div className="details-expander">
+                                <span
+                                    className="details-toggle"
+                                    onClick={() => setShowDetails(!showDetails)}
+                                >
+                                    {showDetails ? '▼' : '▶'} {getText('details', language)}
+                                </span>
+                                {showDetails && (
+                                    <div className="details-content">
+                                        <h4>{getText('generated_answer', language)}</h4>
+                                        <pre>{message.details.answer}</pre>
+                                        <h4>{getText('model_used', language)}</h4>
+                                        <pre>{message.details.model}</pre>
+                                        <h4>{getText('session_id', language)}</h4>
+                                        <pre>{message.details.session_id}</pre>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                    </div>
+                </div>
+            );
+        };
+
+        // Sidebar Component
+        const Sidebar = ({ language, setLanguage, onClearSession, showSuccess }) => {
+            const [showConfirmModal, setShowConfirmModal] = useState(false);
+
+            const languageNames = {
+                en: "English",
+                zh: "简体中文"
+            };
+
+            const handleClearSession = () => {
+                setShowConfirmModal(false);
+                onClearSession();
+                showSuccess(getText('session_cleared', language));
+            };
+
+            return (
+                <div className="sidebar">
+                    <section>
+                        <h2>{getText('select_language', language)}</h2>
+                        <div className="select-wrapper">
+                            <select
+                                value={language}
+                                onChange={(e) => setLanguage(e.target.value)}
+                            >
+                                {Object.entries(languageNames).map(([code, name]) => (
+                                    <option key={code} value={code}>{name}</option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="caption">
+                            {getText('auto_detected', language, {
+                                browser_lang: languageNames[detectBrowserLanguage()] || detectBrowserLanguage()
+                            })}
+                        </div>
+                    </section>
+
+                    <section>
+                        <button
+                            className="button danger"
+                            onClick={() => setShowConfirmModal(true)}
+                        >
+                            {getText('clear_session', language)}
+                        </button>
+                    </section>
+
+                    <ConfirmationModal
+                        isOpen={showConfirmModal}
+                        onClose={() => setShowConfirmModal(false)}
+                        onConfirm={handleClearSession}
+                        language={language}
+                    />
+                </div>
+            );
+        };
+
+        // Chat Interface Component
+        const ChatInterface = ({ language, sessionId, setSessionId }) => {
+            const [messages, setMessages] = useState([]);
+            const [inputValue, setInputValue] = useState('');
+            const [loading, setLoading] = useState(false);
+            const [error, setError] = useState('');
+            const messagesEndRef = useRef(null);
+
+            const scrollToBottom = () => {
+                if (messagesEndRef.current) {
+                    messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+                }
+            };
+
+            useEffect(() => {
+                scrollToBottom();
+            }, [messages]);
+
+            const handleSendMessage = async () => {
+                if (!inputValue.trim() || loading) return;
+
+                const userMessage = inputValue.trim();
+                setInputValue('');
+                setError('');
+
+                // Add user message
+                setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
+                setLoading(true);
+
+                const payload = {
+                    question: userMessage,
+                    model: "Gemini",
+                };
+                if (sessionId) {
+                    payload.sessionId = sessionId;
+                }
+
+                try {
+                    const response = await fetch(`${API_BASE_URL}/chat`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        setSessionId(data.session_id);
+
+                        // Add assistant message with details
+                        setMessages(prev => [...prev, {
+                            role: 'assistant',
+                            content: data.answer,
+                            details: {
+                                answer: data.answer,
+                                model: data.model,
+                                session_id: data.session_id
+                            }
+                        }]);
+                    } else {
+                        setError(getText('api_error', language));
+                    }
+                } catch (err) {
+                    setError(`${getText('api_error', language)} ${err.message}`);
+                } finally {
+                    setLoading(false);
+                }
+            };
+
+            const handleKeyPress = (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    handleSendMessage();
+                }
+            };
+
+            const clearSession = () => {
+                setMessages([]);
+                setSessionId(null);
+                setError('');
+            };
+
+            // Expose clearSession to parent
+            useEffect(() => {
+                window.clearChatSession = clearSession;
+            }, []);
+
+            return (
+                <div className="chat-container">
+                    <div className="messages-container">
+                        {messages.length === 0 && (
+                            <div className="empty-state">
+                                {getText('chat_placeholder', language)}
+                            </div>
+                        )}
+                        {messages.map((message, index) => (
+                            <Message key={index} message={message} language={language} />
+                        ))}
+                        {loading && (
+                            <div className="loading">
+                                <div className="spinner"></div>
+                                <div>{getText('generating', language)}</div>
+                            </div>
+                        )}
+                        {error && <div className="error">{error}</div>}
+                        <div ref={messagesEndRef} />
+                    </div>
+                    <div className="chat-input-container">
+                        <input
+                            type="text"
+                            className="chat-input"
+                            value={inputValue}
+                            onChange={(e) => setInputValue(e.target.value)}
+                            onKeyPress={handleKeyPress}
+                            placeholder={getText('type_message', language)}
+                            disabled={loading}
+                        />
+                        <button
+                            className="send-button"
+                            onClick={handleSendMessage}
+                            disabled={!inputValue.trim() || loading}
+                        >
+                            {getText('send', language)}
+                        </button>
+                    </div>
+                </div>
+            );
+        };
+
+        // Main App Component
+        const App = () => {
+            const [language, setLanguage] = useState(detectBrowserLanguage());
+            const [sessionId, setSessionId] = useState(null);
+            const [success, setSuccess] = useState('');
+
+            useEffect(() => {
+                if (success) {
+                    const timer = setTimeout(() => setSuccess(''), 3000);
+                    return () => clearTimeout(timer);
+                }
+            }, [success]);
+
+            const handleClearSession = () => {
+                if (window.clearChatSession) {
+                    window.clearChatSession();
+                }
+                setSessionId(null);
+            };
+
+            return (
+                <div className="app-container">
+                    <Sidebar
+                        language={language}
+                        setLanguage={setLanguage}
+                        onClearSession={handleClearSession}
+                        showSuccess={setSuccess}
+                    />
+                    <div className="main-content">
+                        <div className="header">
+                            <h1>{getText('app_title', language)}</h1>
+                        </div>
+                        {success && <div className="success" style={{ margin: '20px' }}>{success}</div>}
+                        <ChatInterface
+                            language={language}
+                            sessionId={sessionId}
+                            setSessionId={setSessionId}
+                        />
+                    </div>
+                </div>
+            );
+        };
+
+        // Render the app
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
